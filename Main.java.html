@@ -1,0 +1,576 @@
+<html>
+<head>
+<title>Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Main.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">org</span><span class="s2">.</span><span class="s1">example</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">ActionEvent</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.</span><span class="s1">event</span><span class="s2">.</span><span class="s1">ActionListener</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">swing</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">javax</span><span class="s2">.</span><span class="s1">swing</span><span class="s2">.</span><span class="s1">table</span><span class="s2">.</span><span class="s1">DefaultTableModel</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">awt</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.*;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s0">class </span><span class="s1">Student </span><span class="s2">{</span>
+    <span class="s1">String name</span><span class="s2">;</span>
+    <span class="s1">String id</span><span class="s2">;</span>
+    <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">&gt; </span><span class="s1">coursesTaken</span><span class="s2">;</span>
+    <span class="s1">Map</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">, </span><span class="s1">Boolean</span><span class="s2">&gt; </span><span class="s1">attendanceRecord</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Student</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">, </span><span class="s1">String id</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">id </span><span class="s2">= </span><span class="s1">id</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">coursesTaken </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">attendanceRecord </span><span class="s2">= </span><span class="s0">new </span><span class="s1">HashMap</span><span class="s2">&lt;&gt;();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">addAttendance</span><span class="s2">(</span><span class="s1">String date</span><span class="s2">, </span><span class="s0">boolean </span><span class="s1">present</span><span class="s2">) {</span>
+        <span class="s1">attendanceRecord</span><span class="s2">.</span><span class="s1">put</span><span class="s2">(</span><span class="s1">date</span><span class="s2">, </span><span class="s1">present</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Map</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">, </span><span class="s1">Boolean</span><span class="s2">&gt; </span><span class="s1">getAttendanceRecord</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">attendanceRecord</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s3">&quot;Name: &quot; </span><span class="s2">+ </span><span class="s1">name </span><span class="s2">+ </span><span class="s3">&quot;, ID: &quot; </span><span class="s2">+ </span><span class="s1">id</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+<span class="s0">class </span><span class="s1">Course </span><span class="s2">{</span>
+    <span class="s1">String courseCode</span><span class="s2">;</span>
+    <span class="s1">String description</span><span class="s2">;</span>
+    <span class="s1">String prerequisites</span><span class="s2">;</span>
+    <span class="s1">String syllabus</span><span class="s2">;</span>
+    <span class="s1">String gradingScale</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Course</span><span class="s2">(</span><span class="s1">String courseCode</span><span class="s2">, </span><span class="s1">String description</span><span class="s2">, </span><span class="s1">String prerequisites</span><span class="s2">, </span><span class="s1">String syllabus</span><span class="s2">, </span><span class="s1">String gradingScale</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">courseCode </span><span class="s2">= </span><span class="s1">courseCode</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">description </span><span class="s2">= </span><span class="s1">description</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">prerequisites </span><span class="s2">= </span><span class="s1">prerequisites</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">syllabus </span><span class="s2">= </span><span class="s1">syllabus</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">gradingScale </span><span class="s2">= </span><span class="s1">gradingScale</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s3">&quot;Course Code: &quot; </span><span class="s2">+ </span><span class="s1">courseCode </span><span class="s2">+ </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Description: &quot; </span><span class="s2">+ </span><span class="s1">description </span><span class="s2">+ </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Prerequisites: &quot; </span><span class="s2">+ </span><span class="s1">prerequisites</span>
+                <span class="s2">+ </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Syllabus: &quot; </span><span class="s2">+ </span><span class="s1">syllabus </span><span class="s2">+ </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Grading Scale: &quot; </span><span class="s2">+ </span><span class="s1">gradingScale</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+<span class="s0">class </span><span class="s1">Message </span><span class="s2">{</span>
+    <span class="s1">String sender</span><span class="s2">;</span>
+    <span class="s1">String recipient</span><span class="s2">;</span>
+    <span class="s1">String content</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Message</span><span class="s2">(</span><span class="s1">String sender</span><span class="s2">, </span><span class="s1">String recipient</span><span class="s2">, </span><span class="s1">String content</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">sender </span><span class="s2">= </span><span class="s1">sender</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">recipient </span><span class="s2">= </span><span class="s1">recipient</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">content </span><span class="s2">= </span><span class="s1">content</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s3">&quot;From: &quot; </span><span class="s2">+ </span><span class="s1">sender </span><span class="s2">+ </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">To: &quot; </span><span class="s2">+ </span><span class="s1">recipient </span><span class="s2">+ </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Message: &quot; </span><span class="s2">+ </span><span class="s1">content</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+<span class="s0">class </span><span class="s1">Announcement </span><span class="s2">{</span>
+    <span class="s1">String title</span><span class="s2">;</span>
+    <span class="s1">String content</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Announcement</span><span class="s2">(</span><span class="s1">String title</span><span class="s2">, </span><span class="s1">String content</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">title </span><span class="s2">= </span><span class="s1">title</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">content </span><span class="s2">= </span><span class="s1">content</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String toString</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s3">&quot;Title: &quot; </span><span class="s2">+ </span><span class="s1">title </span><span class="s2">+ </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">Content: &quot; </span><span class="s2">+ </span><span class="s1">content</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+<span class="s0">class </span><span class="s1">StudentHub </span><span class="s0">extends </span><span class="s1">JFrame </span><span class="s2">{</span>
+    <span class="s0">private </span><span class="s1">JPanel studentPanel</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">JPanel coursePanel</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">JPanel attendancePanel</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">JPanel messagingPanel</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">JTextArea studentTextArea</span><span class="s2">, </span><span class="s1">courseTextArea</span><span class="s2">, </span><span class="s1">attendanceTextArea</span><span class="s2">, </span><span class="s1">messageTextArea</span><span class="s2">, </span><span class="s1">announcementTextArea</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">JTextField studentNameField</span><span class="s2">, </span><span class="s1">studentIdField</span><span class="s2">, </span><span class="s1">courseCodeField</span><span class="s2">, </span><span class="s1">descriptionField</span><span class="s2">, </span><span class="s1">prerequisitesField</span><span class="s2">, </span><span class="s1">syllabusField</span><span class="s2">, </span><span class="s1">gradingScaleField</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">JTextField attendanceStudentField</span><span class="s2">, </span><span class="s1">attendanceDateField</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">JTextField senderField</span><span class="s2">, </span><span class="s1">recipientField</span><span class="s2">, </span><span class="s1">messageContentField</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">JTextField announcementTitleField</span><span class="s2">, </span><span class="s1">announcementContentField</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Student</span><span class="s2">&gt; </span><span class="s1">studentList</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Course</span><span class="s2">&gt; </span><span class="s1">courseList</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Message</span><span class="s2">&gt; </span><span class="s1">messageList</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Announcement</span><span class="s2">&gt; </span><span class="s1">announcementList</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">StudentHub</span><span class="s2">() {</span>
+        <span class="s1">studentList </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s1">courseList </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s1">messageList </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s1">announcementList </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+
+        <span class="s1">setTitle</span><span class="s2">(</span><span class="s3">&quot;StudentHub&quot;</span><span class="s2">);</span>
+        <span class="s1">setSize</span><span class="s2">(</span><span class="s4">800</span><span class="s2">, </span><span class="s4">600</span><span class="s2">);</span>
+        <span class="s1">setDefaultCloseOperation</span><span class="s2">(</span><span class="s1">JFrame</span><span class="s2">.</span><span class="s1">EXIT_ON_CLOSE</span><span class="s2">);</span>
+        <span class="s1">loadData</span><span class="s2">();</span>
+        <span class="s1">JTabbedPane tabbedPane </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTabbedPane</span><span class="s2">();</span>
+
+        <span class="s1">studentPanel </span><span class="s2">= </span><span class="s1">createStudentPanel</span><span class="s2">();</span>
+        <span class="s1">coursePanel </span><span class="s2">= </span><span class="s1">createCoursePanel</span><span class="s2">();</span>
+        <span class="s1">attendancePanel </span><span class="s2">= </span><span class="s1">createAttendancePanel</span><span class="s2">();</span>
+        <span class="s1">messagingPanel </span><span class="s2">= </span><span class="s1">createMessagingPanel</span><span class="s2">();</span>
+        <span class="s1">JPanel announcementPanel </span><span class="s2">= </span><span class="s1">createAnnouncementPanel</span><span class="s2">();</span>
+        <span class="s1">Component createGradingPanel </span><span class="s2">= </span><span class="s1">createGradingPanel</span><span class="s2">();</span>
+
+
+        <span class="s1">tabbedPane</span><span class="s2">.</span><span class="s1">addTab</span><span class="s2">(</span><span class="s3">&quot;Student Management&quot;</span><span class="s2">, </span><span class="s1">studentPanel</span><span class="s2">);</span>
+        <span class="s1">tabbedPane</span><span class="s2">.</span><span class="s1">addTab</span><span class="s2">(</span><span class="s3">&quot;Course Management&quot;</span><span class="s2">, </span><span class="s1">coursePanel</span><span class="s2">);</span>
+        <span class="s1">tabbedPane</span><span class="s2">.</span><span class="s1">addTab</span><span class="s2">(</span><span class="s3">&quot;Attendance Tracking&quot;</span><span class="s2">, </span><span class="s1">attendancePanel</span><span class="s2">);</span>
+        <span class="s1">tabbedPane</span><span class="s2">.</span><span class="s1">addTab</span><span class="s2">(</span><span class="s3">&quot;Messaging System&quot;</span><span class="s2">, </span><span class="s1">messagingPanel</span><span class="s2">);</span>
+        <span class="s1">tabbedPane</span><span class="s2">.</span><span class="s1">addTab</span><span class="s2">(</span><span class="s3">&quot;Announcements&quot;</span><span class="s2">, </span><span class="s1">announcementPanel</span><span class="s2">);</span>
+        <span class="s1">tabbedPane</span><span class="s2">.</span><span class="s1">addTab</span><span class="s2">(</span><span class="s3">&quot;Grading System&quot;</span><span class="s2">, </span><span class="s1">createGradingPanel</span><span class="s2">);</span>
+
+        <span class="s1">add</span><span class="s2">(</span><span class="s1">tabbedPane</span><span class="s2">);</span>
+
+        <span class="s1">setVisible</span><span class="s2">(</span><span class="s0">true</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">loadData</span><span class="s2">() {</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">JPanel createStudentPanel</span><span class="s2">() {</span>
+        <span class="s1">JPanel studentPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">();</span>
+        <span class="s1">studentPanel</span><span class="s2">.</span><span class="s1">setLayout</span><span class="s2">(</span><span class="s0">new </span><span class="s1">BorderLayout</span><span class="s2">());</span>
+
+        <span class="s5">// Input panel for student information</span>
+        <span class="s1">JPanel studentInputPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">(</span><span class="s0">new </span><span class="s1">GridLayout</span><span class="s2">(</span><span class="s4">3</span><span class="s2">, </span><span class="s4">2</span><span class="s2">));</span>
+        <span class="s1">studentInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Student Name:&quot;</span><span class="s2">));</span>
+        <span class="s1">studentNameField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">studentInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">studentNameField</span><span class="s2">);</span>
+
+        <span class="s1">studentInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Student ID:&quot;</span><span class="s2">));</span>
+        <span class="s1">studentIdField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">studentInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">studentIdField</span><span class="s2">);</span>
+
+        <span class="s1">JButton addStudentButton </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JButton</span><span class="s2">(</span><span class="s3">&quot;Add Student&quot;</span><span class="s2">);</span>
+        <span class="s1">studentInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">addStudentButton</span><span class="s2">);</span>
+
+        <span class="s5">// Student list view</span>
+        <span class="s1">studentTextArea </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextArea</span><span class="s2">();</span>
+        <span class="s1">studentTextArea</span><span class="s2">.</span><span class="s1">setEditable</span><span class="s2">(</span><span class="s0">false</span><span class="s2">);</span>
+        <span class="s1">JScrollPane studentScrollPane </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JScrollPane</span><span class="s2">(</span><span class="s1">studentTextArea</span><span class="s2">);</span>
+
+        <span class="s1">studentPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">studentInputPanel</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">NORTH</span><span class="s2">);</span>
+        <span class="s1">studentPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">studentScrollPane</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">CENTER</span><span class="s2">);</span>
+
+        <span class="s5">// Action for Add Student button</span>
+        <span class="s1">addStudentButton</span><span class="s2">.</span><span class="s1">addActionListener</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ActionListener</span><span class="s2">() {</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed</span><span class="s2">(</span><span class="s1">ActionEvent e</span><span class="s2">) {</span>
+                <span class="s1">addStudent</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+
+        <span class="s0">return </span><span class="s1">studentPanel</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">addStudent</span><span class="s2">() {</span>
+        <span class="s1">String name </span><span class="s2">= </span><span class="s1">studentNameField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+        <span class="s1">String id </span><span class="s2">= </span><span class="s1">studentIdField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+
+        <span class="s1">Student student </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Student</span><span class="s2">(</span><span class="s1">name</span><span class="s2">, </span><span class="s1">id</span><span class="s2">);</span>
+        <span class="s1">studentList</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">student</span><span class="s2">);</span>
+
+        <span class="s5">// Clear input fields</span>
+        <span class="s1">studentNameField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+        <span class="s1">studentIdField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+
+        <span class="s1">updateStudentList</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">updateStudentList</span><span class="s2">() {</span>
+        <span class="s1">StringBuilder sb </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Student student </span><span class="s2">: </span><span class="s1">studentList</span><span class="s2">) {</span>
+            <span class="s1">sb</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">student</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">()).</span><span class="s1">append</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">-----------------------</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">studentTextArea</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s1">sb</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">());</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">JPanel createCoursePanel</span><span class="s2">() {</span>
+        <span class="s1">JPanel coursePanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">();</span>
+        <span class="s1">coursePanel</span><span class="s2">.</span><span class="s1">setLayout</span><span class="s2">(</span><span class="s0">new </span><span class="s1">BorderLayout</span><span class="s2">());</span>
+
+        <span class="s5">// Input panel for course information</span>
+        <span class="s1">JPanel courseInputPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">(</span><span class="s0">new </span><span class="s1">GridLayout</span><span class="s2">(</span><span class="s4">6</span><span class="s2">, </span><span class="s4">2</span><span class="s2">));</span>
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Course Code:&quot;</span><span class="s2">));</span>
+        <span class="s1">courseCodeField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">courseCodeField</span><span class="s2">);</span>
+
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Description:&quot;</span><span class="s2">));</span>
+        <span class="s1">descriptionField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">descriptionField</span><span class="s2">);</span>
+
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Prerequisites:&quot;</span><span class="s2">));</span>
+        <span class="s1">prerequisitesField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">prerequisitesField</span><span class="s2">);</span>
+
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Syllabus:&quot;</span><span class="s2">));</span>
+        <span class="s1">syllabusField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">syllabusField</span><span class="s2">);</span>
+
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Grading Scale:&quot;</span><span class="s2">));</span>
+        <span class="s1">gradingScaleField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">gradingScaleField</span><span class="s2">);</span>
+
+        <span class="s1">JButton addCourseButton </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JButton</span><span class="s2">(</span><span class="s3">&quot;Add Course&quot;</span><span class="s2">);</span>
+        <span class="s1">courseInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">addCourseButton</span><span class="s2">);</span>
+
+        <span class="s5">// Course list view</span>
+        <span class="s1">courseTextArea </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextArea</span><span class="s2">();</span>
+        <span class="s1">courseTextArea</span><span class="s2">.</span><span class="s1">setEditable</span><span class="s2">(</span><span class="s0">false</span><span class="s2">);</span>
+        <span class="s1">JScrollPane courseScrollPane </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JScrollPane</span><span class="s2">(</span><span class="s1">courseTextArea</span><span class="s2">);</span>
+
+        <span class="s1">coursePanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">courseInputPanel</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">NORTH</span><span class="s2">);</span>
+        <span class="s1">coursePanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">courseScrollPane</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">CENTER</span><span class="s2">);</span>
+
+        <span class="s5">// Action for Add Course button</span>
+        <span class="s1">addCourseButton</span><span class="s2">.</span><span class="s1">addActionListener</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ActionListener</span><span class="s2">() {</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed</span><span class="s2">(</span><span class="s1">ActionEvent e</span><span class="s2">) {</span>
+                <span class="s1">addCourse</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+
+        <span class="s0">return </span><span class="s1">coursePanel</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">addCourse</span><span class="s2">() {</span>
+        <span class="s1">String courseCode </span><span class="s2">= </span><span class="s1">courseCodeField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+        <span class="s1">String description </span><span class="s2">= </span><span class="s1">descriptionField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+        <span class="s1">String prerequisites </span><span class="s2">= </span><span class="s1">prerequisitesField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+        <span class="s1">String syllabus </span><span class="s2">= </span><span class="s1">syllabusField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+        <span class="s1">String gradingScale </span><span class="s2">= </span><span class="s1">gradingScaleField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+
+        <span class="s1">Course course </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Course</span><span class="s2">(</span><span class="s1">courseCode</span><span class="s2">, </span><span class="s1">description</span><span class="s2">, </span><span class="s1">prerequisites</span><span class="s2">, </span><span class="s1">syllabus</span><span class="s2">, </span><span class="s1">gradingScale</span><span class="s2">);</span>
+        <span class="s1">courseList</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">course</span><span class="s2">);</span>
+
+        <span class="s5">// Clear input fields</span>
+        <span class="s1">courseCodeField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+        <span class="s1">descriptionField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+        <span class="s1">prerequisitesField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+        <span class="s1">syllabusField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+        <span class="s1">gradingScaleField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+
+        <span class="s1">updateCourseList</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">updateCourseList</span><span class="s2">() {</span>
+        <span class="s1">StringBuilder sb </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Course course </span><span class="s2">: </span><span class="s1">courseList</span><span class="s2">) {</span>
+            <span class="s1">sb</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">course</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">()).</span><span class="s1">append</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">-----------------------</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">courseTextArea</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s1">sb</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">());</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">JPanel createAttendancePanel</span><span class="s2">() {</span>
+        <span class="s1">JPanel attendancePanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">();</span>
+        <span class="s1">attendancePanel</span><span class="s2">.</span><span class="s1">setLayout</span><span class="s2">(</span><span class="s0">new </span><span class="s1">BorderLayout</span><span class="s2">());</span>
+
+        <span class="s5">// Attendance input fields for date and student name</span>
+        <span class="s1">JPanel attendanceInputPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">(</span><span class="s0">new </span><span class="s1">GridLayout</span><span class="s2">(</span><span class="s4">3</span><span class="s2">, </span><span class="s4">2</span><span class="s2">));</span>
+        <span class="s1">attendanceInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Student Name:&quot;</span><span class="s2">));</span>
+        <span class="s1">attendanceStudentField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">attendanceInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">attendanceStudentField</span><span class="s2">);</span>
+
+        <span class="s1">attendanceInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Attendance Date (yyyy-mm-dd):&quot;</span><span class="s2">));</span>
+        <span class="s1">attendanceDateField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">attendanceInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">attendanceDateField</span><span class="s2">);</span>
+
+        <span class="s1">JButton markAttendanceButton </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JButton</span><span class="s2">(</span><span class="s3">&quot;Mark Attendance&quot;</span><span class="s2">);</span>
+        <span class="s1">attendanceInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">markAttendanceButton</span><span class="s2">);</span>
+
+        <span class="s5">// Attendance list view</span>
+        <span class="s1">attendanceTextArea </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextArea</span><span class="s2">();</span>
+        <span class="s1">attendanceTextArea</span><span class="s2">.</span><span class="s1">setEditable</span><span class="s2">(</span><span class="s0">false</span><span class="s2">);</span>
+        <span class="s1">JScrollPane attendanceScrollPane </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JScrollPane</span><span class="s2">(</span><span class="s1">attendanceTextArea</span><span class="s2">);</span>
+
+        <span class="s1">attendancePanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">attendanceInputPanel</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">NORTH</span><span class="s2">);</span>
+        <span class="s1">attendancePanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">attendanceScrollPane</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">CENTER</span><span class="s2">);</span>
+
+        <span class="s5">// Action for Mark Attendance button</span>
+        <span class="s1">markAttendanceButton</span><span class="s2">.</span><span class="s1">addActionListener</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ActionListener</span><span class="s2">() {</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed</span><span class="s2">(</span><span class="s1">ActionEvent e</span><span class="s2">) {</span>
+                <span class="s1">markAttendance</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+
+        <span class="s0">return </span><span class="s1">attendancePanel</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">markAttendance</span><span class="s2">() {</span>
+        <span class="s1">String studentName </span><span class="s2">= </span><span class="s1">attendanceStudentField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+        <span class="s1">String date </span><span class="s2">= </span><span class="s1">attendanceDateField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+
+        <span class="s5">// Find student by name</span>
+        <span class="s1">Student student </span><span class="s2">= </span><span class="s1">findStudentByName</span><span class="s2">(</span><span class="s1">studentName</span><span class="s2">);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">student </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s1">student</span><span class="s2">.</span><span class="s1">addAttendance</span><span class="s2">(</span><span class="s1">date</span><span class="s2">, </span><span class="s0">true</span><span class="s2">);  </span><span class="s5">// Here we're assuming the student is present; this can be extended</span>
+            <span class="s1">JOptionPane</span><span class="s2">.</span><span class="s1">showMessageDialog</span><span class="s2">(</span><span class="s0">this</span><span class="s2">, </span><span class="s3">&quot;Attendance marked for &quot; </span><span class="s2">+ </span><span class="s1">studentName</span><span class="s2">);</span>
+        <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+            <span class="s1">JOptionPane</span><span class="s2">.</span><span class="s1">showMessageDialog</span><span class="s2">(</span><span class="s0">this</span><span class="s2">, </span><span class="s3">&quot;Student not found.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+
+        <span class="s1">updateAttendanceList</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">updateAttendanceList</span><span class="s2">() {</span>
+        <span class="s1">StringBuilder sb </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Student student </span><span class="s2">: </span><span class="s1">studentList</span><span class="s2">) {</span>
+            <span class="s1">sb</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">student</span><span class="s2">.</span><span class="s1">name </span><span class="s2">+ </span><span class="s3">&quot;'s Attendance:</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+            <span class="s0">for </span><span class="s2">(</span><span class="s1">Map</span><span class="s2">.</span><span class="s1">Entry</span><span class="s2">&lt;</span><span class="s1">String</span><span class="s2">, </span><span class="s1">Boolean</span><span class="s2">&gt; </span><span class="s1">entry </span><span class="s2">: </span><span class="s1">student</span><span class="s2">.</span><span class="s1">getAttendanceRecord</span><span class="s2">().</span><span class="s1">entrySet</span><span class="s2">()) {</span>
+                <span class="s1">sb</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s3">&quot;Date: &quot; </span><span class="s2">+ </span><span class="s1">entry</span><span class="s2">.</span><span class="s1">getKey</span><span class="s2">() + </span><span class="s3">&quot;, Present: &quot; </span><span class="s2">+ </span><span class="s1">entry</span><span class="s2">.</span><span class="s1">getValue</span><span class="s2">() + </span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+            <span class="s2">}</span>
+            <span class="s1">sb</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s3">&quot;-----------------------</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">attendanceTextArea</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s1">sb</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">());</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">JPanel createMessagingPanel</span><span class="s2">() {</span>
+        <span class="s1">JPanel messagingPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">();</span>
+        <span class="s1">messagingPanel</span><span class="s2">.</span><span class="s1">setLayout</span><span class="s2">(</span><span class="s0">new </span><span class="s1">BorderLayout</span><span class="s2">());</span>
+
+        <span class="s5">// Input fields for sender, recipient, and message content</span>
+        <span class="s1">JPanel messageInputPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">(</span><span class="s0">new </span><span class="s1">GridLayout</span><span class="s2">(</span><span class="s4">4</span><span class="s2">, </span><span class="s4">2</span><span class="s2">));</span>
+        <span class="s1">messageInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Sender:&quot;</span><span class="s2">));</span>
+        <span class="s1">senderField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">messageInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">senderField</span><span class="s2">);</span>
+
+        <span class="s1">messageInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Recipient:&quot;</span><span class="s2">));</span>
+        <span class="s1">recipientField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">messageInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">recipientField</span><span class="s2">);</span>
+
+        <span class="s1">messageInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Message Content:&quot;</span><span class="s2">));</span>
+        <span class="s1">messageContentField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">messageInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">messageContentField</span><span class="s2">);</span>
+
+        <span class="s1">JButton sendMessageButton </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JButton</span><span class="s2">(</span><span class="s3">&quot;Send Message&quot;</span><span class="s2">);</span>
+        <span class="s1">messageInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">sendMessageButton</span><span class="s2">);</span>
+
+        <span class="s5">// Message list view</span>
+        <span class="s1">messageTextArea </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextArea</span><span class="s2">();</span>
+        <span class="s1">messageTextArea</span><span class="s2">.</span><span class="s1">setEditable</span><span class="s2">(</span><span class="s0">false</span><span class="s2">);</span>
+        <span class="s1">JScrollPane messageScrollPane </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JScrollPane</span><span class="s2">(</span><span class="s1">messageTextArea</span><span class="s2">);</span>
+
+        <span class="s1">messagingPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">messageInputPanel</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">NORTH</span><span class="s2">);</span>
+        <span class="s1">messagingPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">messageScrollPane</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">CENTER</span><span class="s2">);</span>
+
+        <span class="s5">// Action for Send Message button</span>
+        <span class="s1">sendMessageButton</span><span class="s2">.</span><span class="s1">addActionListener</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ActionListener</span><span class="s2">() {</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed</span><span class="s2">(</span><span class="s1">ActionEvent e</span><span class="s2">) {</span>
+                <span class="s1">sendMessage</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+
+        <span class="s0">return </span><span class="s1">messagingPanel</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">sendMessage</span><span class="s2">() {</span>
+        <span class="s1">String sender </span><span class="s2">= </span><span class="s1">senderField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+        <span class="s1">String recipient </span><span class="s2">= </span><span class="s1">recipientField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+        <span class="s1">String content </span><span class="s2">= </span><span class="s1">messageContentField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+
+        <span class="s1">Message message </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Message</span><span class="s2">(</span><span class="s1">sender</span><span class="s2">, </span><span class="s1">recipient</span><span class="s2">, </span><span class="s1">content</span><span class="s2">);</span>
+        <span class="s1">messageList</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">message</span><span class="s2">);</span>
+
+        <span class="s5">// Clear input fields</span>
+        <span class="s1">senderField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+        <span class="s1">recipientField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+        <span class="s1">messageContentField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+
+        <span class="s1">updateMessageList</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">updateMessageList</span><span class="s2">() {</span>
+        <span class="s1">StringBuilder sb </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Message message </span><span class="s2">: </span><span class="s1">messageList</span><span class="s2">) {</span>
+            <span class="s1">sb</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">message</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">()).</span><span class="s1">append</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">-----------------------</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">messageTextArea</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s1">sb</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">());</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">JPanel createAnnouncementPanel</span><span class="s2">() {</span>
+        <span class="s1">JPanel announcementPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">();</span>
+        <span class="s1">announcementPanel</span><span class="s2">.</span><span class="s1">setLayout</span><span class="s2">(</span><span class="s0">new </span><span class="s1">BorderLayout</span><span class="s2">());</span>
+
+        <span class="s5">// Input fields for announcement title and content</span>
+        <span class="s1">JPanel announcementInputPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">(</span><span class="s0">new </span><span class="s1">GridLayout</span><span class="s2">(</span><span class="s4">3</span><span class="s2">, </span><span class="s4">2</span><span class="s2">));</span>
+        <span class="s1">announcementInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Title:&quot;</span><span class="s2">));</span>
+        <span class="s1">announcementTitleField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">announcementInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">announcementTitleField</span><span class="s2">);</span>
+
+        <span class="s1">announcementInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Content:&quot;</span><span class="s2">));</span>
+        <span class="s1">announcementContentField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+        <span class="s1">announcementInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">announcementContentField</span><span class="s2">);</span>
+
+        <span class="s1">JButton postAnnouncementButton </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JButton</span><span class="s2">(</span><span class="s3">&quot;Post Announcement&quot;</span><span class="s2">);</span>
+        <span class="s1">announcementInputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">postAnnouncementButton</span><span class="s2">);</span>
+
+        <span class="s5">// Announcement list view</span>
+        <span class="s1">announcementTextArea </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextArea</span><span class="s2">();</span>
+        <span class="s1">announcementTextArea</span><span class="s2">.</span><span class="s1">setEditable</span><span class="s2">(</span><span class="s0">false</span><span class="s2">);</span>
+        <span class="s1">JScrollPane announcementScrollPane </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JScrollPane</span><span class="s2">(</span><span class="s1">announcementTextArea</span><span class="s2">);</span>
+
+        <span class="s1">announcementPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">announcementInputPanel</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">NORTH</span><span class="s2">);</span>
+        <span class="s1">announcementPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">announcementScrollPane</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">CENTER</span><span class="s2">);</span>
+
+        <span class="s5">// Action for Post Announcement button</span>
+        <span class="s1">postAnnouncementButton</span><span class="s2">.</span><span class="s1">addActionListener</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ActionListener</span><span class="s2">() {</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed</span><span class="s2">(</span><span class="s1">ActionEvent e</span><span class="s2">) {</span>
+                <span class="s1">postAnnouncement</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+
+        <span class="s0">return </span><span class="s1">announcementPanel</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">postAnnouncement</span><span class="s2">() {</span>
+        <span class="s1">String title </span><span class="s2">= </span><span class="s1">announcementTitleField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+        <span class="s1">String content </span><span class="s2">= </span><span class="s1">announcementContentField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+
+        <span class="s1">Announcement announcement </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Announcement</span><span class="s2">(</span><span class="s1">title</span><span class="s2">, </span><span class="s1">content</span><span class="s2">);</span>
+        <span class="s1">announcementList</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">announcement</span><span class="s2">);</span>
+
+        <span class="s5">// Clear input fields</span>
+        <span class="s1">announcementTitleField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+        <span class="s1">announcementContentField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+
+        <span class="s1">updateAnnouncementList</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private void </span><span class="s1">updateAnnouncementList</span><span class="s2">() {</span>
+        <span class="s1">StringBuilder sb </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Announcement announcement </span><span class="s2">: </span><span class="s1">announcementList</span><span class="s2">) {</span>
+            <span class="s1">sb</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">announcement</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">()).</span><span class="s1">append</span><span class="s2">(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">-----------------------</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">announcementTextArea</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s1">sb</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">());</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private </span><span class="s1">Student findStudentByName</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">) {</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Student student </span><span class="s2">: </span><span class="s1">studentList</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">student</span><span class="s2">.</span><span class="s1">name</span><span class="s2">.</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">name</span><span class="s2">)) {</span>
+                <span class="s0">return </span><span class="s1">student</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">return null</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">private </span><span class="s1">JPanel createGradingPanel</span><span class="s2">() {</span>
+        <span class="s1">JPanel gradingPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">(</span><span class="s0">new </span><span class="s1">BorderLayout</span><span class="s2">());</span>
+
+        <span class="s5">// Table to display marks</span>
+        <span class="s1">DefaultTableModel tableModel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">DefaultTableModel</span><span class="s2">(</span><span class="s0">new </span><span class="s1">String</span><span class="s2">[]{</span>
+                <span class="s3">&quot;Subject&quot;</span><span class="s2">, </span><span class="s3">&quot;Midterm&quot;</span><span class="s2">, </span><span class="s3">&quot;Assignment&quot;</span><span class="s2">, </span><span class="s3">&quot;Quiz&quot;</span><span class="s2">, </span><span class="s3">&quot;Terminal&quot;</span>
+        <span class="s2">}, </span><span class="s4">0</span><span class="s2">);</span>
+        <span class="s1">JTable table </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTable</span><span class="s2">(</span><span class="s1">tableModel</span><span class="s2">);</span>
+        <span class="s1">JScrollPane scrollPane </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JScrollPane</span><span class="s2">(</span><span class="s1">table</span><span class="s2">);</span>
+
+        <span class="s5">// Input panel for adding marks</span>
+        <span class="s1">JPanel inputPanel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JPanel</span><span class="s2">(</span><span class="s0">new </span><span class="s1">GridLayout</span><span class="s2">(</span><span class="s4">6</span><span class="s2">, </span><span class="s4">2</span><span class="s2">, </span><span class="s4">10</span><span class="s2">, </span><span class="s4">10</span><span class="s2">));</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">setBorder</span><span class="s2">(</span><span class="s1">BorderFactory</span><span class="s2">.</span><span class="s1">createTitledBorder</span><span class="s2">(</span><span class="s3">&quot;Add Marks&quot;</span><span class="s2">));</span>
+
+        <span class="s1">JLabel subjectLabel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Subject:&quot;</span><span class="s2">);</span>
+        <span class="s1">JTextField subjectField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+
+        <span class="s1">JLabel midtermLabel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Midterm Marks:&quot;</span><span class="s2">);</span>
+        <span class="s1">JTextField midtermField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+
+        <span class="s1">JLabel assignmentLabel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Assignment Marks:&quot;</span><span class="s2">);</span>
+        <span class="s1">JTextField assignmentField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+
+        <span class="s1">JLabel quizLabel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Quiz Marks:&quot;</span><span class="s2">);</span>
+        <span class="s1">JTextField quizField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+
+        <span class="s1">JLabel terminalLabel </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">(</span><span class="s3">&quot;Terminal Marks:&quot;</span><span class="s2">);</span>
+        <span class="s1">JTextField terminalField </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JTextField</span><span class="s2">();</span>
+
+        <span class="s1">JButton addButton </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JButton</span><span class="s2">(</span><span class="s3">&quot;Add Marks&quot;</span><span class="s2">);</span>
+
+        <span class="s5">// Add components to the input panel</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">subjectLabel</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">subjectField</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">midtermLabel</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">midtermField</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">assignmentLabel</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">assignmentField</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">quizLabel</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">quizField</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">terminalLabel</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">terminalField</span><span class="s2">);</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s0">new </span><span class="s1">JLabel</span><span class="s2">()); </span><span class="s5">// Placeholder for alignment</span>
+        <span class="s1">inputPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">addButton</span><span class="s2">);</span>
+
+        <span class="s5">// Add panels to the grading panel</span>
+        <span class="s1">gradingPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">inputPanel</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">NORTH</span><span class="s2">);</span>
+        <span class="s1">gradingPanel</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">scrollPane</span><span class="s2">, </span><span class="s1">BorderLayout</span><span class="s2">.</span><span class="s1">CENTER</span><span class="s2">);</span>
+
+        <span class="s5">// Button action for adding marks</span>
+        <span class="s1">addButton</span><span class="s2">.</span><span class="s1">addActionListener</span><span class="s2">(</span><span class="s0">new </span><span class="s1">ActionListener</span><span class="s2">() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">actionPerformed</span><span class="s2">(</span><span class="s1">ActionEvent e</span><span class="s2">) {</span>
+                <span class="s1">String subject </span><span class="s2">= </span><span class="s1">subjectField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+                <span class="s1">String midterm </span><span class="s2">= </span><span class="s1">midtermField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+                <span class="s1">String assignment </span><span class="s2">= </span><span class="s1">assignmentField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+                <span class="s1">String quiz </span><span class="s2">= </span><span class="s1">quizField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+                <span class="s1">String terminal </span><span class="s2">= </span><span class="s1">terminalField</span><span class="s2">.</span><span class="s1">getText</span><span class="s2">();</span>
+
+                <span class="s5">// Validate input fields</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">subject</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">() || </span><span class="s1">midterm</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">() || </span><span class="s1">assignment</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">() ||</span>
+                        <span class="s1">quiz</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">() || </span><span class="s1">terminal</span><span class="s2">.</span><span class="s1">isEmpty</span><span class="s2">()) {</span>
+                    <span class="s1">JOptionPane</span><span class="s2">.</span><span class="s1">showMessageDialog</span><span class="s2">(</span><span class="s1">gradingPanel</span><span class="s2">, </span><span class="s3">&quot;All fields are required!&quot;</span><span class="s2">, </span><span class="s3">&quot;Input Error&quot;</span><span class="s2">, </span><span class="s1">JOptionPane</span><span class="s2">.</span><span class="s1">ERROR_MESSAGE</span><span class="s2">);</span>
+                <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                    <span class="s0">try </span><span class="s2">{</span>
+                        <span class="s5">// Add data to the table</span>
+                        <span class="s0">double </span><span class="s1">midtermMarks </span><span class="s2">= </span><span class="s1">Double</span><span class="s2">.</span><span class="s1">parseDouble</span><span class="s2">(</span><span class="s1">midterm</span><span class="s2">);</span>
+                        <span class="s0">double </span><span class="s1">assignmentMarks </span><span class="s2">= </span><span class="s1">Double</span><span class="s2">.</span><span class="s1">parseDouble</span><span class="s2">(</span><span class="s1">assignment</span><span class="s2">);</span>
+                        <span class="s0">double </span><span class="s1">quizMarks </span><span class="s2">= </span><span class="s1">Double</span><span class="s2">.</span><span class="s1">parseDouble</span><span class="s2">(</span><span class="s1">quiz</span><span class="s2">);</span>
+                        <span class="s0">double </span><span class="s1">terminalMarks </span><span class="s2">= </span><span class="s1">Double</span><span class="s2">.</span><span class="s1">parseDouble</span><span class="s2">(</span><span class="s1">terminal</span><span class="s2">);</span>
+
+                        <span class="s1">tableModel</span><span class="s2">.</span><span class="s1">addRow</span><span class="s2">(</span><span class="s0">new </span><span class="s1">Object</span><span class="s2">[]{</span><span class="s1">subject</span><span class="s2">, </span><span class="s1">midtermMarks</span><span class="s2">, </span><span class="s1">assignmentMarks</span><span class="s2">, </span><span class="s1">quizMarks</span><span class="s2">, </span><span class="s1">terminalMarks</span><span class="s2">});</span>
+
+                        <span class="s5">// Clear input fields</span>
+                        <span class="s1">subjectField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+                        <span class="s1">midtermField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+                        <span class="s1">assignmentField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+                        <span class="s1">quizField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+                        <span class="s1">terminalField</span><span class="s2">.</span><span class="s1">setText</span><span class="s2">(</span><span class="s3">&quot;&quot;</span><span class="s2">);</span>
+
+                        <span class="s1">JOptionPane</span><span class="s2">.</span><span class="s1">showMessageDialog</span><span class="s2">(</span><span class="s1">gradingPanel</span><span class="s2">, </span><span class="s3">&quot;Marks added successfully!&quot;</span><span class="s2">);</span>
+
+                    <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">NumberFormatException ex</span><span class="s2">) {</span>
+                        <span class="s1">JOptionPane</span><span class="s2">.</span><span class="s1">showMessageDialog</span><span class="s2">(</span><span class="s1">gradingPanel</span><span class="s2">, </span><span class="s3">&quot;Please enter valid numbers for marks!&quot;</span><span class="s2">, </span><span class="s3">&quot;Input Error&quot;</span><span class="s2">, </span><span class="s1">JOptionPane</span><span class="s2">.</span><span class="s1">ERROR_MESSAGE</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+                <span class="s2">}</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+
+        <span class="s0">return </span><span class="s1">gradingPanel</span><span class="s2">;</span>
+    <span class="s2">}</span>
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+        <span class="s0">new </span><span class="s1">StudentHub</span><span class="s2">();</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+</pre>
+</body>
+</html>
